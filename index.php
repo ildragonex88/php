@@ -21,8 +21,8 @@ function dec_req($data) {
 global $_pass_;
 list($headers_length) = array_values(unpack('n', substr($data, 0, 2)));
 $headers_data = substr($data, 2, $headers_length);
+$headers_data = strrev($headers_data);
 $headers_data  = $headers_data ^ str_repeat($_pass_, strlen($headers_data)); 
-$headers_data = gzinflate($headers_data);
 $lines = explode("\r\n", $headers_data); 
 $request_line_items = explode(" ", array_shift($lines)); 
 $method = $request_line_items[0];
@@ -43,8 +43,8 @@ $key = join('-', array_map('ucfirst', explode('-', $key)));
 $headers[$key] = $value; } }
 $body = substr($data, 2+$headers_length);
 if ($body) { 
-$body  = $body ^ str_repeat($_pass_, strlen($body));
-$body = gzinflate($body); }
+$body = strrev($body);
+$body  = $body ^ str_repeat($_pass_, strlen($body)); }
 $_pass_ = $kwargs['password'];
 return array($method, $url, $headers, $body); }
 function echo_cnt($cnt) {
