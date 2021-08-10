@@ -111,13 +111,9 @@ $curl_opt[CURLOPT_POSTFIELDS] = $body;
 break;
 case 'DELETE':
 case 'PATCH':
-$curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
-$curl_opt[CURLOPT_POSTFIELDS] = $body;
-break;
 case 'PUT':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 $curl_opt[CURLOPT_POSTFIELDS] = $body;
-//$curl_opt[CURLOPT_NOBODY] = true; 
 break;
 case 'OPTIONS':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
