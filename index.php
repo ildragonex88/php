@@ -120,7 +120,6 @@ $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 break;
 case 'TRACE':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
-$curl_opt[CURLOPT_NOBODY] = true; 
 break;
 default:
 echo_content("HTTP/2 405\r\n\r\n" . message_html('Error 405 (Method Not Allowed)!!1', 'Method error ' . $method));
