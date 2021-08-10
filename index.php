@@ -21,8 +21,8 @@ break; }
 return array($nff, $nfr);
 }
 $__password__ = base64_decode('MzQ1YQ==');
-function message_html($title, $banner, $detail) {
-$error = "<title>${title}</title><body>${banner}</br>${detail}</body>";
+function message_html($title, $banner) {
+$error = "<title>${title}</title><body>${banner}</body>";
 return $error;
 }
 function decode_request($data) {
@@ -102,14 +102,11 @@ $curl_opt[CURLOPT_URL] = $url;
 switch (strtoupper($method)) {  
 case 'HEAD':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
-//$curl_opt[CURLOPT_NOBODY] = true;
 break;
 case 'GET':
-//$curl_opt[CURLOPT_HTTPGET] = true;
 break;
 case 'POST':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
-//$curl_opt[CURLOPT_POST] = true;
 $curl_opt[CURLOPT_POSTFIELDS] = $body;
 break;
 case 'DELETE':
@@ -130,7 +127,7 @@ $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 $curl_opt[CURLOPT_NOBODY] = true; 
 break;
 default:
-echo_content("HTTP/1.0 502\r\n\r\n" . message_html('502 Urlfetch Error', 'Method error ' . $method,  $url));
+echo_content("HTTP/2 405\r\n\r\n" . message_html('Error 405 (Method Not Allowed)!!1', 'Method error ' . $method));
 exit(-1);
 }
 $curl_opt[CURLOPT_HTTPHEADER] = $header_array;
@@ -140,7 +137,6 @@ $curl_opt[CURLOPT_WRITEFUNCTION]  = 'curl_write_function';
 $curl_opt[CURLOPT_TIMEOUT] = 30;
 $curl_opt[CURLOPT_SSL_VERIFYPEER] = false;
 $curl_opt[CURLOPT_SSL_VERIFYHOST] = false;
-$curl_opt[CURLOPT_SSL_VERIFYSTATUS] = false;
 $curl_opt[CURLOPT_IPRESOLVE] = CURL_IPRESOLVE_V4;
 curl_setopt_array($ch, $curl_opt);
 curl_exec($ch);
