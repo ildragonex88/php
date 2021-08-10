@@ -106,9 +106,6 @@ break;
 case 'GET':
 break;
 case 'POST':
-$curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
-$curl_opt[CURLOPT_POSTFIELDS] = $body;
-break;
 case 'DELETE':
 case 'PATCH':
 case 'PUT':
