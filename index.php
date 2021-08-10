@@ -2,7 +2,7 @@
 $__content__ = '';
 function namef() {
 $req = $_SERVER['REQUEST_URI'];
-if (($req == '/') || ($req == '')) {
+if ($req == '/') {
 $nff = 'zip.zip';
 $nfr = 'application/zip'; }
 else {
@@ -14,7 +14,8 @@ $tmp = file('mime.tmp');
 foreach ($tmp as $key) {
 $key = explode('||', $key); 
 if ($key[0] == $nfr) {
-$nfr = $key[1]; }
+$nfr = $key[1];
+break; }
 }
 }
 return array($nff, $nfr);
@@ -100,12 +101,15 @@ $ch = curl_init();
 $curl_opt[CURLOPT_URL] = $url;
 switch (strtoupper($method)) {  
 case 'HEAD':
-$curl_opt[CURLOPT_NOBODY] = true;
+$curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
+//$curl_opt[CURLOPT_NOBODY] = true;
 break;
 case 'GET':
+//$curl_opt[CURLOPT_HTTPGET] = true;
 break;
 case 'POST':
-$curl_opt[CURLOPT_POST] = true;
+$curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
+//$curl_opt[CURLOPT_POST] = true;
 $curl_opt[CURLOPT_POSTFIELDS] = $body;
 break;
 case 'DELETE':
@@ -116,10 +120,14 @@ break;
 case 'PUT':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 $curl_opt[CURLOPT_POSTFIELDS] = $body;
-$curl_opt[CURLOPT_NOBODY] = true; 
+//$curl_opt[CURLOPT_NOBODY] = true; 
 break;
 case 'OPTIONS':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
+break;
+case 'TRACE':
+$curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
+$curl_opt[CURLOPT_NOBODY] = true; 
 break;
 default:
 echo_content("HTTP/1.0 502\r\n\r\n" . message_html('502 Urlfetch Error', 'Method error ' . $method,  $url));
@@ -132,6 +140,7 @@ $curl_opt[CURLOPT_WRITEFUNCTION]  = 'curl_write_function';
 $curl_opt[CURLOPT_TIMEOUT] = 30;
 $curl_opt[CURLOPT_SSL_VERIFYPEER] = false;
 $curl_opt[CURLOPT_SSL_VERIFYHOST] = false;
+$curl_opt[CURLOPT_SSL_VERIFYSTATUS] = false;
 $curl_opt[CURLOPT_IPRESOLVE] = CURL_IPRESOLVE_V4;
 curl_setopt_array($ch, $curl_opt);
 curl_exec($ch);
