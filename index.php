@@ -101,6 +101,8 @@ $ch = curl_init();
 $curl_opt[CURLOPT_URL] = $url;
 switch (strtoupper($method)) {  
 case 'HEAD':
+case 'OPTIONS':
+case 'TRACE':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 break;
 case 'GET':
@@ -111,12 +113,6 @@ case 'PATCH':
 case 'PUT':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 $curl_opt[CURLOPT_POSTFIELDS] = $body;
-break;
-case 'OPTIONS':
-$curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
-break;
-case 'TRACE':
-$curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 break;
 default:
 echo_content("HTTP/2 405\r\n\r\n" . message_html('Error 405 (Method Not Allowed)!!1', 'Method error ' . $method));
