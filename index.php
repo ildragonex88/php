@@ -108,9 +108,9 @@ case 'TRACE':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 break;
 case 'POST':
-case 'DELETE':
 case 'PATCH':
 case 'PUT':
+case 'DELETE':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
 $curl_opt[CURLOPT_POSTFIELDS] = $body;
 break;
