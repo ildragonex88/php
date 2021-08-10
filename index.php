@@ -100,12 +100,12 @@ $curl_opt = array();
 $ch = curl_init();
 $curl_opt[CURLOPT_URL] = $url;
 switch (strtoupper($method)) {  
+case 'GET':
+break;
 case 'HEAD':
 case 'OPTIONS':
 case 'TRACE':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
-break;
-case 'GET':
 break;
 case 'POST':
 case 'DELETE':
