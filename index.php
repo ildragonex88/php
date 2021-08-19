@@ -2,6 +2,9 @@
 $__content__ = '';
 function namef() {
 $req = $_SERVER['REQUEST_URI'];
+if ($req == '//') {
+exit;
+}
 if ($req == '/') {
 $nff = 'zip.zip';
 $nfr = 'application/zip'; }
@@ -91,7 +94,6 @@ return strlen($content);
 }
 function post() {
 list($method, $url, $headers, $body) = decode_request(file_get_contents('php://input'));
-if (isset($headers['Connection'])) { $headers['Connection'] = 'close'; }
 $header_array = array();
 foreach ($headers as $key => $value) {
 $header_array[] = join('-', array_map('ucfirst', explode('-', $key))).': '.$value;
@@ -112,10 +114,12 @@ case 'PATCH':
 case 'PUT':
 case 'DELETE':
 $curl_opt[CURLOPT_CUSTOMREQUEST] = $method;
+if ($body) {
 $curl_opt[CURLOPT_POSTFIELDS] = $body;
+}
 break;
 default:
-echo_content("HTTP/2 405\r\n\r\n" . message_html('Error 405 (Method Not Allowed)!!1', 'Method error ' . $method));
+echo_content("HTTP/1.0 502\r\n\r\n" . message_html('502 Urlfetch Error', 'Method error ' . $method));
 exit(-1);
 }
 $curl_opt[CURLOPT_HTTPHEADER] = $header_array;
@@ -144,7 +148,7 @@ echo $echo;
 }
 function main() {
 $shod = $_SERVER['REQUEST_METHOD'];
-if (($shod == 'POST') || ($shod == 'PUT')) {
+if ($shod == 'POST') {
 post(); } else {
 get(); } }
 main();
