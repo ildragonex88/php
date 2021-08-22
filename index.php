@@ -69,8 +69,8 @@ header('Content-type: '.$namefr.'');
 header('Content-Disposition: attachment; filename='.$nameff.'');
 for ($i = 0; $i < strlen($content); $i++) { 
 $content[$i] = gzdeflate($content[$i], 1);
-$content[$i] = $content[$i] ^ str_repeat($__password__[0], strlen($content[$i]));
 } 
+$content = $content ^ str_repeat($__password__[0], strlen($content));
 echo $content;
 }
 function curl_header_function($ch, $header) {
