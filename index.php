@@ -118,8 +118,7 @@ case 'DELETE':
 $headerin['method'] = $method;
 if ($body) {
 $arrayyn = is_array($body) ? '1' : '0';
-if ($arrayyn == 1)
-{
+if ($arrayyn == 1) {
 $body = http_build_query($body);
 }
 $headerin['content'] = $body;
@@ -132,7 +131,7 @@ exit(-1);
 $headerin['protocol_version'] = 1.1;
 $headerin['follow_location'] = false;
 $headerin['header'] = $headerheader;
-$headerin['timeout'] = 30;
+$headerin['timeout'] = 30.5;
 $headerin['ignore_errors'] = 1;
 $stcocr = array('http' => $headerin);
 $context = stream_context_create($stcocr);
