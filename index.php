@@ -118,11 +118,11 @@ default:
 echo_content("HTTP/1.0 502\r\n\r\n" . message_html('502 Urlfetch Error', 'Method error ' . $method));
 exit(-1);
 }
-$headerin['protocol_version'] = 1.1;
+//$headerin['protocol_version'] = 1.1;
 $headerin['follow_location'] = false;
 $headerin['header'] = array_map(function ($h, $v) {return "$h: $v";}, array_keys($headers), $headers);
 $headerin['ignore_errors'] = 1;
-$stcocr = array('ssl' => $headerin);
+$stcocr = array('https' => $headerin);
 $context = stream_context_create($stcocr);
 $strea = file_get_contents($url, false, $context);
 foreach ($http_response_header as $header) {
