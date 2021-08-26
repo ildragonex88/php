@@ -142,6 +142,7 @@ header_function("\r\n");
 }
 header_function("\r\n"); 
 write_function($strea);
+exit;
 }
 function get() {
 $f = fopen ('1.tmp','rb');
