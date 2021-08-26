@@ -92,7 +92,6 @@ echo_content($content);
 }
 function post() {
 list($method, $url, $headers, $body) = decode_request(file_get_contents('php://input'));
-
 $headerin = array();
 switch (strtoupper($method)) {  
 case 'GET':
