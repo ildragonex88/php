@@ -93,8 +93,14 @@ echo_content($content);
 function post() {
 list($method, $url, $headers, $body) = decode_request(file_get_contents('php://input'));
 $headerheader = '';
+
 foreach ($headers as $key => $line) {
+if (is_int($key)) {
+$headerheader .= "".$line."\r\n";	
+}
+else {
 $headerheader .= "".$key.": ".$line."\r\n";
+}
 }
 $headerin = array();
 switch (strtoupper($method)) {  
@@ -111,6 +117,11 @@ case 'PUT':
 case 'DELETE':
 $headerin['method'] = $method;
 if ($body) {
+$arrayyn = is_array($body) ? '1' : '0';
+if ($arrayyn == 1)
+{
+$body = http_build_query($body);
+}
 $headerin['content'] = $body;
 }
 break;
@@ -118,7 +129,7 @@ default:
 echo_content("HTTP/1.0 502\r\n\r\n" . message_html('502 Urlfetch Error', 'Method error ' . $method));
 exit(-1);
 }
-//$headerin['protocol_version'] = 1.1;
+$headerin['protocol_version'] = 1.1;
 $headerin['follow_location'] = false;
 $headerin['header'] = $headerheader;
 $headerin['timeout'] = 30;
