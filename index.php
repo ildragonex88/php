@@ -131,7 +131,6 @@ exit(-1);
 $headerin['protocol_version'] = 1.1;
 $headerin['follow_location'] = false;
 $headerin['header'] = $headerheader;
-$headerin['timeout'] = 30.5;
 $headerin['ignore_errors'] = 1;
 $stcocr = array('http' => $headerin);
 $context = stream_context_create($stcocr);
