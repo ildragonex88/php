@@ -92,16 +92,7 @@ echo_content($content);
 }
 function post() {
 list($method, $url, $headers, $body) = decode_request(file_get_contents('php://input'));
-$headerheader = '';
 
-foreach ($headers as $key => $line) {
-if (is_int($key)) {
-$headerheader .= "".$line."\r\n";	
-}
-else {
-$headerheader .= "".$key.": ".$line."\r\n";
-}
-}
 $headerin = array();
 switch (strtoupper($method)) {  
 case 'GET':
@@ -128,9 +119,9 @@ default:
 echo_content("HTTP/1.0 502\r\n\r\n" . message_html('502 Urlfetch Error', 'Method error ' . $method));
 exit(-1);
 }
-$headerin['protocol_version'] = 1.1;
+//$headerin['protocol_version'] = 1.1;
 $headerin['follow_location'] = false;
-$headerin['header'] = $headerheader;
+$headerin['header'] = array_map(function ($h, $v) {return "$h: $v";}, array_keys($headers), $headers);
 $headerin['ignore_errors'] = 1;
 $stcocr = array('http' => $headerin);
 $context = stream_context_create($stcocr);
