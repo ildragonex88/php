@@ -35,8 +35,7 @@ $headers_data = substr($data, 2, $headers_length);
 $headers_data  = $headers_data ^ str_repeat($__password__, strlen($headers_data)); 
 $headers_data = gzinflate($headers_data);
 
-$headerst = ''
-array_shift($headertemp);
+$headerst = '';
 $lines = explode("\r\n", $headers_data); 
 $linestm = explode("\r\n", $headers_data); 
 array_shift($linestm);
