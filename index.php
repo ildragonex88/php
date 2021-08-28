@@ -126,8 +126,6 @@ default:
 echo_content("HTTP/1.0 502\r\n\r\n" . message_html('502 Urlfetch Error', 'Method error ' . $method));
 exit(-1);
 }
-$headerin['protocol_version'] = 1.1;
-$headerin['request_fulluri'] = 1;
 $headerin['follow_location'] = false;
 $headerin['header'] = $headers;
 $headerin['ignore_errors'] = 1;
