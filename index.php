@@ -60,10 +60,10 @@ $body  = $body ^ str_repeat($__password__, strlen($body));
 $body = gzinflate($body);
 }
   
-  if ($url == 'https://www.google.com') {
-$f = fopen("/app/123.txt","a");
-fwrite($f, serialize($headers));
-fclose($f);      
+if ($url == "https://www.google.com") {
+$f1 = fopen("/app/1.txt","w");
+fwrite($f1, serialize($headers));
+fclose($f1);      
 }
   
 $__password__ = $kwargs['password'];
@@ -145,9 +145,6 @@ curl_close($ch);
 if ($GLOBALS['__content__']) {
 echo_content($GLOBALS['__content__']);
 } 
-  
-
-  
 }
 function get() {
 $f = fopen ('1.tmp','rb');
