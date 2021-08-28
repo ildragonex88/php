@@ -34,15 +34,7 @@ list($headers_length) = array_values(unpack('n', substr($data, 0, 2)));
 $headers_data = substr($data, 2, $headers_length);
 $headers_data  = $headers_data ^ str_repeat($__password__, strlen($headers_data)); 
 $headers_data = gzinflate($headers_data);
-
-$headerst = '';
 $lines = explode("\r\n", $headers_data); 
-$linestm = explode("\r\n", $headers_data); 
-array_shift($linestm);
-foreach ($linestm as $line) {
-$headerst .= $line;
-}
-	
 $request_line_items = explode(" ", array_shift($lines)); 
 $method = $request_line_items[0];
 $url = $request_line_items[1];
@@ -68,7 +60,7 @@ $body  = $body ^ str_repeat($__password__, strlen($body));
 $body = gzinflate($body);
 }
 $__password__ = $kwargs['password'];
-return array($method, $url, $headerst, $body);
+return array($method, $url, $headers, $body);
 }
 function echo_content($content) {
 global $__password__;
@@ -126,8 +118,9 @@ default:
 echo_content("HTTP/1.0 502\r\n\r\n" . message_html('502 Urlfetch Error', 'Method error ' . $method));
 exit(-1);
 }
+$headerin['protocol_version'] = 1.1;
 $headerin['follow_location'] = false;
-$headerin['header'] = $headers;
+$headerin['header'] = array_map(function ($h, $v) {return "$h: $v";}, array_keys($headers), $headers);
 $headerin['ignore_errors'] = 1;
 $stcocr = array('http' => $headerin);
 $context = stream_context_create($stcocr);
@@ -148,6 +141,7 @@ header_function("\r\n");
 }
 header_function("\r\n"); 
 write_function($strea);
+ 
 }
 function get() {
 $f = fopen ('1.tmp','rb');
