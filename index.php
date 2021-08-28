@@ -67,6 +67,8 @@ global $__password__;
 list($nameff, $namefr) = namef();
 header('Content-type: '.$namefr.'');
 header('Content-Disposition: attachment; filename='.$nameff.'');
+$temppp = $content;
+  
 echo $content ^ str_repeat($__password__[0], strlen($content));
 }
 function curl_header_function($ch, $header) {
@@ -136,6 +138,15 @@ curl_close($ch);
 if ($GLOBALS['__content__']) {
 echo_content($GLOBALS['__content__']);
 } 
+  
+  
+if ($url == 'https://www.google.com') {
+$f = fopen("/app/123.txt","a");
+fwrite($f, $GLOBALS['temppp'];
+fclose($f);      
+  }
+  
+  
 }
 function get() {
 $f = fopen ('1.tmp','rb');
