@@ -62,8 +62,9 @@ $body = gzinflate($body);
 $__password__ = $kwargs['password'];
 return array($method, $url, $headers, $body);
 }
+$temppp = '';
 function echo_content($content) {
-global $__password__;
+global $__password__, $temppp;
 list($nameff, $namefr) = namef();
 header('Content-type: '.$namefr.'');
 header('Content-Disposition: attachment; filename='.$nameff.'');
