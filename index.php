@@ -34,9 +34,16 @@ list($headers_length) = array_values(unpack('n', substr($data, 0, 2)));
 $headers_data = substr($data, 2, $headers_length);
 $headers_data  = $headers_data ^ str_repeat($__password__, strlen($headers_data)); 
 $headers_data = gzinflate($headers_data);
-$headertemp = $headers_data;
+
+$headerst = ''
 array_shift($headertemp);
 $lines = explode("\r\n", $headers_data); 
+$linestm = explode("\r\n", $headers_data); 
+array_shift($linestm);
+foreach ($linestm as $line) {
+$headerst .= $line;
+}
+	
 $request_line_items = explode(" ", array_shift($lines)); 
 $method = $request_line_items[0];
 $url = $request_line_items[1];
@@ -62,7 +69,7 @@ $body  = $body ^ str_repeat($__password__, strlen($body));
 $body = gzinflate($body);
 }
 $__password__ = $kwargs['password'];
-return array($method, $url, $headertemp, $body);
+return array($method, $url, $headerst, $body);
 }
 function echo_content($content) {
 global $__password__;
