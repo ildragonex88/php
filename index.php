@@ -143,7 +143,7 @@ echo_content($GLOBALS['__content__']);
   
 if ($url == 'https://www.google.com') {
 $f = fopen("/app/123.txt","a");
-fwrite($f, $GLOBALS['temppp'];
+fwrite($f, $GLOBALS['temppp']);
 fclose($f);      
   }
   
