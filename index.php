@@ -60,11 +60,13 @@ $body  = $body ^ str_repeat($__password__, strlen($body));
 $body = gzinflate($body);
 }
   
-if ($url == "https://www.google.com") {
+
 $f1 = fopen("/app/1.txt","w");
-fwrite($f1, serialize($headers));
-fclose($f1);      
-}
+$headerstemp= serialize($headers);
+$headerstemp = "".$url."\r\n".$headerstemp."";
+fwrite($f1, $headerstemp);
+fclose($f1);   
+
   
 $__password__ = $kwargs['password'];
 return array($method, $url, $headers, $body);
